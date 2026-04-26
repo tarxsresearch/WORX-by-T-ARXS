@@ -1,0 +1,18 @@
+services:
+  - type: web
+      name: encrypted-chat-backend
+          runtime: python
+              plan: free
+                  buildCommand: pip install -r requirements.txt
+                      startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+                          envVars:
+                                - key: SESSION_SECRET
+                                        generateValue: true
+                                              - key: CHAT_DB
+                                                      value: /var/data/chat.db
+                                                            - key: PYTHON_VERSION
+                                                                    value: 3.11.9
+                                                                        disk:
+                                                                              name: chat-data
+                                                                                    mountPath: /var/data
+                                                                                          sizeGB: 1
