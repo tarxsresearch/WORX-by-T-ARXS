@@ -1,9 +1,18 @@
-fastapi
-uvicorn[standard]
-websockets
-bcrypt
-python-jose[cryptography]
-python-multipart
-sqlalchemy
-cryptography
-pydantic
+# Web Framework & Server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# WebSocket & Async
+websockets>=12.0
+
+# Authentication & Security
+bcrypt>=4.1.0
+python-jose[cryptography]>=3.3.0
+cryptography>=41.0.0
+
+# Data Validation & ORM
+pydantic>=2.5.0
+sqlalchemy>=2.0.0
+
+# Forms & Multipart
+python-multipart>=0.0.6
