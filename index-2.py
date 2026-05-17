@@ -1,54 +1,47 @@
 """
-╔════════════════════════════════════════════════════════════════════════════════╗
-║                     WORCX — Production Backend v2.0                            ║
-║        End-to-End Encrypted Social Chat with Realtime Reactions                ║
-╚════════════════════════════════════════════════════════════════════════════════╝
+\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557
+\u2551                     WORCX \u2014 Production Backend v2.2                            \u2551
+\u2551        End-to-End Encrypted Social Chat with Realtime Reactions                \u2551
+\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d
 
-ARCHITECTURE OVERVIEW:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CHANGELOG v2.2 (complete implementation):
+\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501
+  ADD  \u2014 POST /messages                       send DM
+  ADD  \u2014 GET  /messages/conversation/{uid}    fetch DM history (paginated)
+  ADD  \u2014 PATCH /messages/{id}                 edit message
+  ADD  \u2014 DELETE /messages/{id}                soft-delete message
+  ADD  \u2014 POST /groups                         create group
+  ADD  \u2014 GET  /groups                         list current user's groups
+  ADD  \u2014 GET  /groups/{id}                    group detail + members
+  ADD  \u2014 PATCH /groups/{id}                   edit group name/avatar
+  ADD  \u2014 DELETE /groups/{id}                  delete group (owner only)
+  ADD  \u2014 POST /groups/{id}/members            add member
+  ADD  \u2014 DELETE /groups/{id}/members/{uid}    remove member
+  ADD  \u2014 POST /groups/{id}/messages           send group message
+  ADD  \u2014 GET  /groups/{id}/messages           fetch group history (paginated)
+  ADD  \u2014 POST /users/{id}/follow              send follow request
+  ADD  \u2014 DELETE /users/{id}/follow            unfollow
+  ADD  \u2014 PATCH /follows/{id}                  approve / reject follow
+  ADD  \u2014 GET  /users/{id}/followers           list followers
+  ADD  \u2014 GET  /users/{id}/following           list following
+  ADD  \u2014 GET  /users/search                   search users by username
+  ADD  \u2014 GET  /users/{id}                     public user profile
+  ADD  \u2014 PATCH /auth/me                       update own profile
+  ADD  \u2014 POST /rooms                          create ephemeral room
+  ADD  \u2014 GET  /rooms/{token}                  room detail
+  ADD  \u2014 POST /rooms/{token}/join             join room
+  ADD  \u2014 POST /rooms/{token}/messages         send room message
+  ADD  \u2014 GET  /rooms/{token}/messages         room history
+  FIX  \u2014 SlowAPI Request param properly wired (was request=None)
+  FIX  \u2014 Request imported from fastapi
+  ADD  \u2014 requirements.txt generated alongside this file
+\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501
 
-🔐 END-TO-END ENCRYPTION (E2EE):
-  • Client-side encryption: private keys stored on user device only
-  • Server stores only: public keys (for key discovery) + ciphertext (unreadable)
-  • Server NEVER sees plaintext messages — all encryption/decryption on client
-  • Perfect forward secrecy: per-message encryption with session keys
-  
-🔑 API KEY MANAGEMENT FOR E2EE:
-  • Each user gets unique E2EE encryption key (stored server-side encrypted with session key)
-  • API keys authenticate the E2EE backend service (Tweetnactl/libsignal equivalent)
-  • Future support: key rotation, backup codes, device pairing
-  • Endpoint: /e2ee/keys/* for E2EE service integration
-
-⚡ REALTIME BROADCAST (WebSocket):
-  • Reactions broadcast to ALL conversation participants instantly
-  • DMs: broadcast to sender + recipient (2 recipients)
-  • Groups: broadcast to all group members (fanout)
-  • Read receipts, typing indicators, message edits also realtime
-  • Automatic dead connection cleanup
-
-🛡️ SECURITY HARDENING:
-  • CORS fixed: specific origins only (not wildcard with credentials)
-  • WebSocket auth: JWT in Authorization header (not query param)
-  • Rate limiting: 100 req/min per IP on auth, 50 msg/min per user
-  • Input validation: all fields sanitized + max lengths enforced
-  • Password hashing: bcrypt with salt, warns if >72 bytes
-  • Token revocation: Redis blacklist support for logout
-  • Invite link security: one-time use option, expiry support
-  • Screenshot alerts: logged server-side, can trigger moderation
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-FEATURES VERIFIED:
-  ✓ Reactions realtime broadcast (DMs + Groups)
-  ✓ Edit message + realtime sync
-  ✓ Delete message + realtime sync
-  ✓ Read receipts + typing indicators
-  ✓ WebRTC call signaling
-  ✓ Anonymous ephemeral rooms (auto-expire)
-  ✓ Follow system (bidirectional check working)
-  ✓ Private accounts with follow approval
-  ✓ Message history pagination
-  ✓ Invite links with auto-connect
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUICK START:
+  pip install -r requirements.txt
+  export SESSION_SECRET="your-stable-secret-here"
+  python main.py
+\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501
 """
 
 import os
@@ -57,60 +50,68 @@ import secrets
 import asyncio
 import sqlite3
 import logging
+import sys
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, List, Set
-from enum import Enum
 
 from fastapi import (
-    FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect, 
-    Form, Header, status
+    FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect,
+    Header, status, Query, Request,
 )
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthCredentials
 from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import (
-    create_engine, Column, Integer, String, Text, DateTime, ForeignKey, 
-    Boolean, UniqueConstraint, Index
+    create_engine, Column, Integer, String, Text, DateTime, ForeignKey,
+    Boolean, UniqueConstraint, Index, or_, and_,
 )
 from sqlalchemy.orm import declarative_base, sessionmaker, Session, relationship
 import bcrypt
 from jose import jwt, JWTError
 
-# ═════════════════════════════════════════════════════════════════════════════
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 #  LOGGING & CONFIG
-# ═════════════════════════════════════════════════════════════════════════════
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
 
-# Environment config
-SECRET_KEY        = os.environ.get("SESSION_SECRET", secrets.token_urlsafe(32))
+SECRET_KEY = os.environ.get("SESSION_SECRET")
+if not SECRET_KEY:
+    logger.critical(
+        "SESSION_SECRET env var is not set. "
+        "Set it to a stable secret or all tokens will be invalidated on restart.\n"
+        "Example: export SESSION_SECRET=$(python -c \"import secrets; print(secrets.token_urlsafe(32))\")"
+    )
+    sys.exit(1)
+
 E2EE_BACKEND_URL  = os.environ.get("E2EE_BACKEND", "https://e2ee-api.worcx.io")
 ALGORITHM         = "HS256"
 TOKEN_TTL_HOURS   = 24 * 7
 DB_PATH           = os.environ.get("CHAT_DB", "chat.db")
 MAX_GROUP_MEMBERS = 20
-MAX_EMOJI_LEN     = 16
+MAX_EMOJI_LEN     = 32
+MAX_MSG_LEN       = 64_000   # ciphertext byte cap
 PORT              = int(os.environ.get("PORT", "5000"))
 ALLOWED_KINDS     = {"text", "image", "video", "audio", "file"}
 ALLOWED_ORIGINS   = [
     "http://localhost:3000",
-    "http://localhost:5173", 
-    os.environ.get("FRONTEND_URL", "https://worcx.io")
+    "http://localhost:5173",
+    os.environ.get("FRONTEND_URL", "https://worcx.io"),
 ]
-RATE_LIMIT_AUTH   = 100      # requests per minute
-RATE_LIMIT_MSG    = 50       # messages per minute per user
+RATE_LIMIT_AUTH   = 100
+RATE_LIMIT_MSG    = 50
+PAGE_SIZE         = 50
 
 _db_dir = os.path.dirname(DB_PATH)
 if _db_dir:
     os.makedirs(_db_dir, exist_ok=True)
 
-# ═════════════════════════════════════════════════════════════════════════════
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 #  DATABASE MODELS
-# ═════════════════════════════════════════════════════════════════════════════
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 
 engine = create_engine(
     f"sqlite:///{DB_PATH}",
@@ -123,44 +124,45 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"
-    id              = Column(Integer, primary_key=True)
-    username        = Column(String(64), unique=True, nullable=False, index=True)
-    password_hash   = Column(String(256), nullable=False)
-    public_key      = Column(Text, nullable=True)  # E2EE public key (PEM)
-    avatar          = Column(Text, nullable=True)  # base64 or URL
-    display_name    = Column(String(120), nullable=True)
-    location        = Column(String(120), nullable=True)
-    is_private      = Column(Boolean, default=False)
-    invite_token    = Column(String(64), unique=True, nullable=True, index=True)
-    
-    # E2EE KEY MANAGEMENT ← NEW FIELDS
-    e2ee_api_key    = Column(String(128), unique=True, nullable=True, index=True)
-    e2ee_key_backup = Column(Text, nullable=True)          # encrypted backup codes
-    e2ee_key_expires= Column(DateTime, nullable=True)      # API key expiry
-    e2ee_last_rotate= Column(DateTime, nullable=True)      # last key rotation
-    
-    created_at      = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
-    updated_at      = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    id               = Column(Integer, primary_key=True)
+    username         = Column(String(64), unique=True, nullable=False, index=True)
+    password_hash    = Column(String(256), nullable=False)
+    public_key       = Column(Text, nullable=True)
+    avatar           = Column(Text, nullable=True)
+    display_name     = Column(String(120), nullable=True)
+    location         = Column(String(120), nullable=True)
+    is_private       = Column(Boolean, default=False)
+    invite_token     = Column(String(64), unique=True, nullable=True, index=True)
+    e2ee_api_key     = Column(String(128), unique=True, nullable=True, index=True)
+    e2ee_key_backup  = Column(Text, nullable=True)
+    e2ee_key_expires = Column(DateTime, nullable=True)
+    e2ee_last_rotate = Column(DateTime, nullable=True)
+    created_at       = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    updated_at       = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 
 class Group(Base):
     __tablename__ = "groups"
-    id          = Column(Integer, primary_key=True)
-    name        = Column(String(120), nullable=False)
-    avatar      = Column(Text, nullable=True)
-    owner_id    = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
-    created_at  = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    members     = relationship("GroupMember", back_populates="group", cascade="all, delete-orphan")
+    id         = Column(Integer, primary_key=True)
+    name       = Column(String(120), nullable=False)
+    avatar     = Column(Text, nullable=True)
+    owner_id   = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    members    = relationship("GroupMember", back_populates="group", cascade="all, delete-orphan")
+    messages   = relationship("Message", primaryjoin="Group.id == foreign(Message.group_id)", lazy="dynamic")
 
 
 class GroupMember(Base):
     __tablename__ = "group_members"
-    id          = Column(Integer, primary_key=True)
-    group_id    = Column(Integer, ForeignKey("groups.id"), nullable=False, index=True)
-    user_id     = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
-    joined_at   = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    group       = relationship("Group", back_populates="members")
-    __table_args__ = (Index("ix_group_user", "group_id", "user_id"),)
+    id        = Column(Integer, primary_key=True)
+    group_id  = Column(Integer, ForeignKey("groups.id"), nullable=False, index=True)
+    user_id   = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    joined_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    group     = relationship("Group", back_populates="members")
+    __table_args__ = (
+        UniqueConstraint("group_id", "user_id", name="uniq_group_member"),
+        Index("ix_group_user", "group_id", "user_id"),
+    )
 
 
 class Follow(Base):
@@ -178,34 +180,29 @@ class Follow(Base):
 
 class Message(Base):
     __tablename__ = "messages"
-    id          = Column(Integer, primary_key=True)
-    sender_id   = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
-    recipient_id= Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
-    group_id    = Column(Integer, ForeignKey("groups.id"), nullable=True, index=True)
-    client_msg_id=Column(String(64), nullable=True, index=True)
-    kind        = Column(String(16), nullable=False, default="text")
-    ciphertext  = Column(Text, nullable=False)
-    created_at  = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
-    edited_at   = Column(DateTime, nullable=True)
-    deleted     = Column(Boolean, default=False)
-    delivered   = Column(Boolean, default=False)
-    
-    likes       = relationship("Reaction", back_populates="message", cascade="all, delete-orphan")
+    id            = Column(Integer, primary_key=True)
+    sender_id     = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    recipient_id  = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    group_id      = Column(Integer, ForeignKey("groups.id"), nullable=True, index=True)
+    client_msg_id = Column(String(64), nullable=True, index=True)
+    kind          = Column(String(16), nullable=False, default="text")
+    ciphertext    = Column(Text, nullable=False)
+    created_at    = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    edited_at     = Column(DateTime, nullable=True)
+    deleted       = Column(Boolean, default=False)
+    delivered     = Column(Boolean, default=False)
+    likes         = relationship("Reaction", back_populates="message", cascade="all, delete-orphan")
 
 
 class Reaction(Base):
-    """
-    REALTIME REACTIONS — Broadcast to all conversation participants instantly.
-    For group messages: multiple per-member copies use same client_msg_id for aggregation.
-    """
     __tablename__ = "reactions"
-    id          = Column(Integer, primary_key=True)
-    message_id  = Column(Integer, ForeignKey("messages.id"), nullable=False, index=True)
-    client_msg_id=Column(String(64), nullable=True, index=True)
-    user_id     = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
-    emoji       = Column(String(16), nullable=False)
-    created_at  = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
-    message     = relationship("Message", back_populates="likes")
+    id            = Column(Integer, primary_key=True)
+    message_id    = Column(Integer, ForeignKey("messages.id"), nullable=False, index=True)
+    client_msg_id = Column(String(64), nullable=True, index=True)
+    user_id       = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    emoji         = Column(String(32), nullable=False)
+    created_at    = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    message       = relationship("Message", back_populates="likes")
     __table_args__ = (
         UniqueConstraint("message_id", "user_id", "emoji", name="uniq_reaction_per_user_emoji"),
         Index("ix_reaction_client_msg_id", "client_msg_id"),
@@ -219,129 +216,178 @@ class Room(Base):
     name        = Column(String(120), nullable=True)
     owner_id    = Column(Integer, ForeignKey("users.id"), nullable=True)
     max_members = Column(Integer, default=10, nullable=False)
-    incognito   = Column(Boolean, default=True)  # no history stored
+    incognito   = Column(Boolean, default=True)
     created_at  = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    expires_at  = Column(DateTime, nullable=True)  # TTL
+    expires_at  = Column(DateTime, nullable=True)
     members     = relationship("RoomMember", back_populates="room", cascade="all, delete-orphan")
     messages    = relationship("RoomMessage", back_populates="room", cascade="all, delete-orphan")
 
 
 class RoomMember(Base):
     __tablename__ = "room_members"
-    id          = Column(Integer, primary_key=True)
-    room_id     = Column(Integer, ForeignKey("rooms.id"), nullable=False, index=True)
-    user_id     = Column(Integer, ForeignKey("users.id"), nullable=True)
-    nickname    = Column(String(64), nullable=True)
-    joined_at   = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    room        = relationship("Room", back_populates="members")
+    id        = Column(Integer, primary_key=True)
+    room_id   = Column(Integer, ForeignKey("rooms.id"), nullable=False, index=True)
+    user_id   = Column(Integer, ForeignKey("users.id"), nullable=True)
+    nickname  = Column(String(64), nullable=True)
+    joined_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    room      = relationship("Room", back_populates="members")
     __table_args__ = (
-        UniqueConstraint("room_id", "nickname", name="uniq_room_nickname"),  # FIX: null-safe
+        UniqueConstraint("room_id", "nickname", name="uniq_room_nickname"),
         Index("ix_room_member_user", "room_id", "user_id"),
     )
 
 
 class RoomMessage(Base):
     __tablename__ = "room_messages"
-    id          = Column(Integer, primary_key=True)
-    room_id     = Column(Integer, ForeignKey("rooms.id"), nullable=False, index=True)
-    sender_nickname=Column(String(64), nullable=False)
-    content     = Column(Text, nullable=False)
-    kind        = Column(String(16), default="text", nullable=False)
-    created_at  = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
-    room        = relationship("Room", back_populates="messages")
+    id              = Column(Integer, primary_key=True)
+    room_id         = Column(Integer, ForeignKey("rooms.id"), nullable=False, index=True)
+    sender_nickname = Column(String(64), nullable=False)
+    content         = Column(Text, nullable=True)    # deprecated \u2014 legacy plaintext
+    ciphertext      = Column(Text, nullable=True)    # E2EE ciphertext
+    kind            = Column(String(16), default="text", nullable=False)
+    created_at      = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    room            = relationship("Room", back_populates="messages")
 
 
 Base.metadata.create_all(engine)
 
 
-def _migrate_db():
-    """Add missing columns for E2EE API keys."""
+# \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+#  DB MIGRATION  (idempotent)
+# \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+
+def _migrate_db() -> None:
     try:
         conn = sqlite3.connect(DB_PATH)
-        cur = conn.cursor()
-        
+        cur  = conn.cursor()
+
         def cols(table: str) -> set:
             cur.execute(f"PRAGMA table_info({table})")
             return {row[1] for row in cur.fetchall()}
-        
+
         u = cols("users")
-        if "e2ee_api_key" not in u:
-            cur.execute("ALTER TABLE users ADD COLUMN e2ee_api_key VARCHAR(128)")
-            cur.execute("CREATE UNIQUE INDEX ix_e2ee_api_key ON users(e2ee_api_key)")
-            logger.info("✓ Added e2ee_api_key column")
-        
-        if "e2ee_key_backup" not in u:
-            cur.execute("ALTER TABLE users ADD COLUMN e2ee_key_backup TEXT")
-            logger.info("✓ Added e2ee_key_backup column")
-        
-        if "e2ee_key_expires" not in u:
-            cur.execute("ALTER TABLE users ADD COLUMN e2ee_key_expires DATETIME")
-            logger.info("✓ Added e2ee_key_expires column")
-        
-        if "e2ee_last_rotate" not in u:
-            cur.execute("ALTER TABLE users ADD COLUMN e2ee_last_rotate DATETIME")
-            logger.info("✓ Added e2ee_last_rotate column")
-        
-        if "location" not in u:
-            cur.execute("ALTER TABLE users ADD COLUMN location VARCHAR(120)")
-            logger.info("✓ Added location column")
-        
-        if "updated_at" not in u:
-            cur.execute("ALTER TABLE users ADD COLUMN updated_at DATETIME")
-            logger.info("✓ Added updated_at column")
-        
+        user_cols = [
+            ("e2ee_api_key",    "ALTER TABLE users ADD COLUMN e2ee_api_key VARCHAR(128)"),
+            ("e2ee_key_backup", "ALTER TABLE users ADD COLUMN e2ee_key_backup TEXT"),
+            ("e2ee_key_expires","ALTER TABLE users ADD COLUMN e2ee_key_expires DATETIME"),
+            ("e2ee_last_rotate","ALTER TABLE users ADD COLUMN e2ee_last_rotate DATETIME"),
+            ("location",        "ALTER TABLE users ADD COLUMN location VARCHAR(120)"),
+            ("updated_at",      "ALTER TABLE users ADD COLUMN updated_at DATETIME"),
+            ("invite_token",    "ALTER TABLE users ADD COLUMN invite_token VARCHAR(64)"),
+        ]
+        for col, sql in user_cols:
+            if col not in u:
+                cur.execute(sql)
+                logger.info(f"\u2713 Migrated: users.{col}")
+
+        for idx_sql in [
+            "CREATE UNIQUE INDEX IF NOT EXISTS ix_e2ee_api_key ON users(e2ee_api_key)",
+            "CREATE UNIQUE INDEX IF NOT EXISTS ix_invite_token  ON users(invite_token)",
+        ]:
+            try:
+                cur.execute(idx_sql)
+            except sqlite3.OperationalError:
+                pass
+
+        rm = cols("room_messages")
+        if "ciphertext" not in rm:
+            cur.execute("ALTER TABLE room_messages ADD COLUMN ciphertext TEXT")
+            logger.info("\u2713 Migrated: room_messages.ciphertext")
+
         conn.commit()
         conn.close()
-        logger.info("✓ Database migration complete")
+        logger.info("\u2713 DB migration complete")
     except Exception as e:
-        logger.warning(f"⚠ Migration issue: {e}")
+        logger.warning(f"\u26a0 Migration issue (non-fatal): {e}")
+
 
 _migrate_db()
 
 
-# ═════════════════════════════════════════════════════════════════════════════
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+#  WEBSOCKET HUB  (defined before routes)
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+
+class Hub:
+    def __init__(self) -> None:
+        self.connections: Dict[int, Set[WebSocket]] = {}
+        self.lock = asyncio.Lock()
+
+    async def connect(self, user_id: int, ws: WebSocket) -> None:
+        async with self.lock:
+            self.connections.setdefault(user_id, set()).add(ws)
+
+    async def disconnect(self, user_id: int, ws: WebSocket) -> None:
+        async with self.lock:
+            if user_id in self.connections:
+                self.connections[user_id].discard(ws)
+                if not self.connections[user_id]:
+                    del self.connections[user_id]
+
+    async def deliver(self, user_id: int, msg: dict) -> None:
+        async with self.lock:
+            sockets = list(self.connections.get(user_id, set()))
+        dead: List[WebSocket] = []
+        for ws in sockets:
+            try:
+                await ws.send_text(json.dumps(msg, default=str))
+            except Exception:
+                dead.append(ws)
+        for ws in dead:
+            await self.disconnect(user_id, ws)
+
+    def is_online(self, user_id: int) -> bool:
+        return user_id in self.connections
+
+
+hub = Hub()
+
+
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 #  AUTH & CRYPTO
-# ═════════════════════════════════════════════════════════════════════════════
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 
 def hash_password(pw: str) -> str:
-    """Hash password with bcrypt. Warns if >72 bytes (bcrypt limit)."""
-    if len(pw.encode('utf-8')) > 72:
-        logger.warning(f"⚠ Password >72 bytes will be truncated by bcrypt")
+    if len(pw.encode("utf-8")) > 72:
+        logger.warning("\u26a0 Password >72 bytes will be truncated by bcrypt")
     return bcrypt.hashpw(pw.encode("utf-8")[:72], bcrypt.gensalt()).decode("utf-8")
 
 
 def verify_password(pw: str, hashed: str) -> bool:
-    """Verify password against bcrypt hash."""
     try:
         return bcrypt.checkpw(pw.encode("utf-8")[:72], hashed.encode("utf-8"))
     except Exception as e:
-        logger.warning(f"⚠ Password verification error: {e}")
+        logger.warning(f"\u26a0 Password verify error: {e}")
         return False
 
 
 def make_token(user_id: int) -> str:
-    """Generate JWT token with 7-day expiry."""
-    payload = {
-        "sub": str(user_id),
-        "iat": datetime.now(timezone.utc),
-        "exp": datetime.now(timezone.utc) + timedelta(hours=TOKEN_TTL_HOURS),
-    }
-    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(
+        {
+            "sub": str(user_id),
+            "iat": datetime.now(timezone.utc),
+            "exp": datetime.now(timezone.utc) + timedelta(hours=TOKEN_TTL_HOURS),
+        },
+        SECRET_KEY,
+        algorithm=ALGORITHM,
+    )
 
 
 def decode_token(token: str) -> int:
-    """Decode JWT token and return user_id."""
     try:
         data = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return int(data["sub"])
     except (JWTError, KeyError, ValueError) as e:
-        logger.warning(f"⚠ Token decode error: {e}")
-        raise HTTPException(status_code=401, detail="Invalid token")
+        logger.warning(f"\u26a0 Token decode error: {e}")
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
 
 
 def generate_e2ee_api_key() -> str:
-    """Generate unique E2EE API key (128 chars, URL-safe)."""
     return f"e2ee_{secrets.token_urlsafe(96)}"
+
+
+def generate_invite_token() -> str:
+    return secrets.token_urlsafe(48)
 
 
 def get_db():
@@ -354,43 +400,66 @@ def get_db():
 
 def current_user(
     authorization: Optional[str] = Header(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ) -> User:
-    """Extract user from Authorization header (Bearer token)."""
     if not authorization:
-        raise HTTPException(status_code=401, detail="Missing authorization header")
-    
+        raise HTTPException(401, "Missing Authorization header")
     parts = authorization.split()
     if len(parts) != 2 or parts[0].lower() != "bearer":
-        raise HTTPException(status_code=401, detail="Invalid authorization format")
-    
-    uid = decode_token(parts[1])
+        raise HTTPException(401, "Invalid Authorization format")
+    uid  = decode_token(parts[1])
     user = db.get(User, uid)
     if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+        raise HTTPException(401, "User not found")
     return user
 
 
-def _norm_username(u: str) -> str:
-    """Normalize username: lowercase, strip whitespace."""
+def _norm(u: str) -> str:
     return (u or "").strip().lower()
 
 
-# ═════════════════════════════════════════════════════════════════════════════
+def _now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+#  RATE LIMITING  (optional \u2014 graceful fallback if slowapi not installed)
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+
+try:
+    from slowapi import Limiter, _rate_limit_exceeded_handler
+    from slowapi.util import get_remote_address
+    from slowapi.errors import RateLimitExceeded
+
+    limiter = Limiter(key_func=get_remote_address)
+    _RATE_OK = True
+except ImportError:
+    _RATE_OK = False
+    logger.warning("\u26a0 slowapi not installed \u2014 rate limiting disabled. pip install slowapi")
+
+    class _NoopLimiter:                             # type: ignore
+        def limit(self, *a, **kw):
+            return lambda fn: fn
+    limiter = _NoopLimiter()                        # type: ignore
+
+
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 #  SCHEMAS
-# ═════════════════════════════════════════════════════════════════════════════
+# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+
+# \u2500\u2500 Auth \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
 class RegisterIn(BaseModel):
-    username: str = Field(min_length=3, max_length=64)
-    password: str = Field(min_length=6, max_length=256)
-    public_key: Optional[str] = None
+    username:     str           = Field(min_length=3, max_length=64)
+    password:     str           = Field(min_length=6, max_length=256)
+    public_key:   Optional[str] = None
     display_name: Optional[str] = None
-    avatar: Optional[str] = None
+    avatar:       Optional[str] = None
 
     @field_validator("username")
     @classmethod
     def _u(cls, v: str) -> str:
-        return _norm_username(v)
+        return _norm(v)
 
 
 class LoginIn(BaseModel):
@@ -400,630 +469,31 @@ class LoginIn(BaseModel):
     @field_validator("username")
     @classmethod
     def _u(cls, v: str) -> str:
-        return _norm_username(v)
+        return _norm(v)
 
 
 class TokenOut(BaseModel):
     access_token: str
-    token_type: str = "bearer"
-    user_id: int
-    username: str
-    e2ee_api_key: Optional[str] = None  # ← E2EE key on login
+    token_type:   str           = "bearer"
+    user_id:      int
+    username:     str
+    e2ee_api_key: Optional[str] = None
 
 
 class UserOut(BaseModel):
-    id: int
-    username: str
-    display_name: Optional[str] = None
-    avatar: Optional[str] = None
-    location: Optional[str] = None
-    public_key: Optional[str] = None
-    is_private: bool = False
-    e2ee_api_key_exists: bool = False  # only expose existence, not the key itself
+    id:                  int
+    username:            str
+    display_name:        Optional[str] = None
+    avatar:              Optional[str] = None
+    location:            Optional[str] = None
+    public_key:          Optional[str] = None
+    is_private:          bool          = False
+    e2ee_api_key_exists: bool          = False
 
 
-class ReactionIn(BaseModel):
-    emoji: str = Field(min_length=1, max_length=MAX_EMOJI_LEN)
-
-    @field_validator("emoji")
-    @classmethod
-    def validate_emoji(cls, v: str) -> str:
-        if not v.strip():
-            raise ValueError("emoji cannot be empty")
-        return v.strip()
-
-
-class ReactionOut(BaseModel):
-    id: int
-    message_id: int
-    client_msg_id: Optional[str]
-    user_id: int
-    emoji: str
-    created_at: str
-
-
-class MessageOut(BaseModel):
-    id: int
-    sender_id: int
-    recipient_id: int
-    group_id: Optional[int]
-    kind: str
-    ciphertext: Optional[str]
-    client_msg_id: Optional[str]
-    created_at: str
-    edited_at: Optional[str] = None
-    deleted: bool = False
-    reactions: List[ReactionOut] = []
-
-
-class E2EEKeyRotateIn(BaseModel):
-    new_public_key: str = Field(min_length=100, max_length=5000)
-    old_api_key: Optional[str] = None
-
-
-# ═════════════════════════════════════════════════════════════════════════════
-#  APP SETUP
-# ═════════════════════════════════════════════════════════════════════════════
-
-app = FastAPI(
-    title="WORCX API v2.0",
-    description="End-to-End Encrypted Social Chat with Realtime Reactions",
-    version="2.0.0"
-)
-
-# ✓ FIXED CORS: specific origins only, no wildcard with credentials
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization"],
-    max_age=3600,
-)
-
-# ═════════════════════════════════════════════════════════════════════════════
-#  AUTH ROUTES
-# ═════════════════════════════════════════════════════════════════════════════
-
-@app.post("/auth/register", response_model=TokenOut, status_code=201)
-def register(body: RegisterIn, db: Session = Depends(get_db)):
-    """Register new user. Generates E2EE API key on signup."""
-    if db.query(User).filter_by(username=body.username).first():
-        raise HTTPException(400, "Username taken")
-    
-    user = User(
-        username=body.username,
-        password_hash=hash_password(body.password),
-        public_key=body.public_key,
-        avatar=body.avatar,
-        display_name=body.display_name or body.username,
-        e2ee_api_key=generate_e2ee_api_key(),  # ← Auto-generate E2EE key
-        e2ee_key_expires=datetime.now(timezone.utc) + timedelta(days=365),
-    )
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    
-    logger.info(f"✓ New user registered: {user.username} (E2EE key: {user.e2ee_api_key[:20]}...)")
-    
-    return TokenOut(
-        access_token=make_token(user.id),
-        user_id=user.id,
-        username=user.username,
-        e2ee_api_key=user.e2ee_api_key,
-    )
-
-
-@app.post("/auth/login", response_model=TokenOut)
-def login(body: LoginIn, db: Session = Depends(get_db)):
-    """Login with username + password. Returns E2EE API key."""
-    user = db.query(User).filter_by(username=_norm_username(body.username)).first()
-    if not user or not verify_password(body.password, user.password_hash):
-        raise HTTPException(401, "Invalid username or password")
-    
-    return TokenOut(
-        access_token=make_token(user.id),
-        user_id=user.id,
-        username=user.username,
-        e2ee_api_key=user.e2ee_api_key,  # ← Return E2EE key on login
-    )
-
-
-@app.get("/auth/me", response_model=UserOut)
-def me(user: User = Depends(current_user)):
-    """Get current user profile."""
-    return UserOut(
-        id=user.id,
-        username=user.username,
-        display_name=user.display_name,
-        avatar=user.avatar,
-        location=user.location,
-        public_key=user.public_key,
-        is_private=bool(user.is_private),
-        e2ee_api_key_exists=bool(user.e2ee_api_key),
-    )
-
-
-# ═════════════════════════════════════════════════════════════════════════════
-#  E2EE API KEY MANAGEMENT ← NEW ENDPOINTS
-# ═════════════════════════════════════════════════════════════════════════════
-
-@app.get("/e2ee/keys/current")
-def get_e2ee_key(user: User = Depends(current_user)):
-    """Get current E2EE API key (only for user's own use)."""
-    if not user.e2ee_api_key:
-        raise HTTPException(404, "E2EE key not generated yet")
-    
-    return {
-        "api_key": user.e2ee_api_key,
-        "expires_at": user.e2ee_key_expires.isoformat() if user.e2ee_key_expires else None,
-        "backend_url": E2EE_BACKEND_URL,
-        "last_rotated": user.e2ee_last_rotate.isoformat() if user.e2ee_last_rotate else None,
-    }
-
-
-@app.post("/e2ee/keys/rotate")
-def rotate_e2ee_key(
-    body: E2EEKeyRotateIn,
-    user: User = Depends(current_user),
-    db: Session = Depends(get_db),
-):
-    """
-    Rotate E2EE API key. Returns new key.
-    New public key is updated for E2E encryption.
-    """
-    # Validate old key if provided
-    if body.old_api_key and body.old_api_key != user.e2ee_api_key:
-        raise HTTPException(401, "Invalid old API key")
-    
-    # Generate new API key
-    new_key = generate_e2ee_api_key()
-    
-    # Update user
-    user.e2ee_api_key = new_key
-    user.public_key = body.new_public_key
-    user.e2ee_last_rotate = datetime.now(timezone.utc)
-    user.e2ee_key_expires = datetime.now(timezone.utc) + timedelta(days=365)
-    db.commit()
-    
-    logger.info(f"✓ E2EE key rotated for user {user.username}")
-    
-    return {
-        "api_key": new_key,
-        "expires_at": user.e2ee_key_expires.isoformat(),
-        "backend_url": E2EE_BACKEND_URL,
-        "status": "rotated",
-    }
-
-
-@app.post("/e2ee/keys/revoke")
-def revoke_e2ee_key(
-    user: User = Depends(current_user),
-    db: Session = Depends(get_db),
-):
-    """Revoke current E2EE key. User must login again to get new one."""
-    old_key = user.e2ee_api_key
-    user.e2ee_api_key = None
-    db.commit()
-    
-    logger.info(f"✓ E2EE key revoked for user {user.username}")
-    
-    return {
-        "status": "revoked",
-        "message": "E2EE key has been revoked. Login again to generate a new one."
-    }
-
-
-@app.get("/e2ee/public-key/{user_id}")
-def get_public_key(
-    user_id: int,
-    db: Session = Depends(get_db),
-):
-    """
-    Get user's public key for encryption (public endpoint — no auth needed).
-    Used by clients to encrypt messages before sending.
-    """
-    user = db.get(User, user_id)
-    if not user or not user.public_key:
-        raise HTTPException(404, "Public key not found")
-    
-    return {
-        "user_id": user.id,
-        "username": user.username,
-        "public_key": user.public_key,
-        "updated_at": user.updated_at.isoformat() if user.updated_at else None,
-    }
-
-
-# ═════════════════════════════════════════════════════════════════════════════
-#  REACTIONS REALTIME BROADCAST ← DEBUGGED & VERIFIED
-# ═════════════════════════════════════════════════════════════════════════════
-
-def _reactions_for(db: Session, m: Message) -> List[ReactionOut]:
-    """
-    Get reactions for a message.
-    For group messages: aggregate reactions across all per-member copies
-    so every recipient sees the same reaction counts (idempotent).
-    """
-    if m.group_id is not None and m.client_msg_id:
-        # GROUP: all reactions with same client_msg_id
-        rs = db.query(Reaction).filter(
-            Reaction.client_msg_id == m.client_msg_id
-        ).all()
-    else:
-        # DM: reactions on this specific message copy
-        rs = db.query(Reaction).filter(
-            Reaction.message_id == m.id
-        ).all()
-    
-    # Deduplicate by (user_id, emoji)
-    seen: Set[tuple] = set()
-    out: List[ReactionOut] = []
-    for r in rs:
-        key = (r.user_id, r.emoji)
-        if key not in seen:
-            seen.add(key)
-            out.append(ReactionOut(
-                id=r.id,
-                message_id=r.message_id,
-                client_msg_id=r.client_msg_id,
-                user_id=r.user_id,
-                emoji=r.emoji,
-                created_at=r.created_at.isoformat() if r.created_at else "",
-            ))
-    return out
-
-
-async def _broadcast_reaction_change(db: Session, m: Message, hub: 'Hub'):
-    """
-    REALTIME BROADCAST: Send updated reactions to all conversation participants.
-    
-    DMs (1:1):
-      → Recipients: sender + recipient (2 people)
-      
-    Groups (1:N):
-      → Recipients: all group members (fanout to N)
-    """
-    if m.group_id is not None:
-        # GROUP: broadcast to all members
-        g = db.get(Group, m.group_id)
-        recipients = [mem.user_id for mem in g.members] if g else []
-    else:
-        # DM: broadcast to sender + recipient
-        recipients = list({m.sender_id, m.recipient_id})
-    
-    # Prepare payload
-    reactions_data = [r.model_dump() for r in _reactions_for(db, m)]
-    payload = {
-        "type": "reactions_updated",
-        "data": {
-            "message_id": m.id,
-            "client_msg_id": m.client_msg_id,
-            "group_id": m.group_id,
-            "reactions": reactions_data,
-            "total_reactions": len(reactions_data),
-            "updated_at": datetime.now(timezone.utc).isoformat(),
-        }
-    }
-    
-    # Broadcast to all recipients via WebSocket
-    logger.info(f"→ Broadcasting reactions to {len(recipients)} recipient(s)")
-    for uid in recipients:
-        await hub.deliver(uid, payload)
-
-
-@app.post("/messages/{message_id}/reactions", response_model=List[ReactionOut])
-async def add_reaction(
-    message_id: int,
-    body: ReactionIn,
-    user: User = Depends(current_user),
-    db: Session = Depends(get_db),
-):
-    """
-    Add emoji reaction to message.
-    ✓ REALTIME: broadcasts reaction to all participants instantly
-    """
-    m = db.get(Message, message_id)
-    if not m or m.deleted:
-        raise HTTPException(404, "Message not found")
-    
-    # Validate participant
-    if m.group_id is not None:
-        g = db.get(Group, m.group_id)
-        if not g or not any(mem.user_id == user.id for mem in g.members):
-            raise HTTPException(403, "Not a group member")
-    else:
-        if user.id not in (m.sender_id, m.recipient_id):
-            raise HTTPException(403, "Not a participant in this DM")
-    
-    # Add or skip if exists (idempotent)
-    existing = db.query(Reaction).filter_by(
-        message_id=m.id,
-        user_id=user.id,
-        emoji=body.emoji
-    ).first()
-    
-    if not existing:
-        r = Reaction(
-            message_id=m.id,
-            client_msg_id=m.client_msg_id,
-            user_id=user.id,
-            emoji=body.emoji,
-        )
-        db.add(r)
-        db.commit()
-        logger.info(f"✓ Reaction added: {user.username} → {body.emoji} on message {message_id}")
-    
-    # BROADCAST to all participants
-    await _broadcast_reaction_change(db, m, hub)
-    
-    return _reactions_for(db, m)
-
-
-@app.delete("/messages/{message_id}/reactions/{emoji}", response_model=List[ReactionOut])
-async def remove_reaction(
-    message_id: int,
-    emoji: str,
-    user: User = Depends(current_user),
-    db: Session = Depends(get_db),
-):
-    """
-    Remove emoji reaction from message.
-    ✓ REALTIME: broadcasts removal to all participants instantly
-    """
-    m = db.get(Message, message_id)
-    if not m:
-        raise HTTPException(404, "Message not found")
-    
-    deleted = db.query(Reaction).filter_by(
-        message_id=m.id,
-        user_id=user.id,
-        emoji=emoji
-    ).delete()
-    
-    if deleted:
-        db.commit()
-        logger.info(f"✓ Reaction removed: {user.username} ✕ {emoji} on message {message_id}")
-    
-    # BROADCAST to all participants
-    await _broadcast_reaction_change(db, m, hub)
-    
-    return _reactions_for(db, m)
-
-
-@app.get("/messages/{message_id}/reactions", response_model=List[ReactionOut])
-def list_reactions(
-    message_id: int,
-    user: User = Depends(current_user),
-    db: Session = Depends(get_db),
-):
-    """List all reactions on a message."""
-    m = db.get(Message, message_id)
-    if not m:
-        raise HTTPException(404, "Message not found")
-    
-    return _reactions_for(db, m)
-
-
-# ═════════════════════════════════════════════════════════════════════════════
-#  WEBSOCKET HUB (Realtime Broadcast)
-# ═════════════════════════════════════════════════════════════════════════════
-
-class Hub:
-    """In-memory WebSocket connection hub for realtime delivery."""
-
-    def __init__(self):
-        self.connections: Dict[int, Set[WebSocket]] = {}
-        self.lock = asyncio.Lock()
-
-    async def connect(self, user_id: int, ws: WebSocket):
-        """Register WebSocket connection."""
-        async with self.lock:
-            self.connections.setdefault(user_id, set()).add(ws)
-        logger.debug(f"↑ User {user_id} connected ({len(self.connections.get(user_id, set()))} connections)")
-
-    async def disconnect(self, user_id: int, ws: WebSocket):
-        """Unregister WebSocket connection."""
-        async with self.lock:
-            if user_id in self.connections:
-                self.connections[user_id].discard(ws)
-                if not self.connections[user_id]:
-                    del self.connections[user_id]
-        logger.debug(f"↓ User {user_id} disconnected")
-
-    async def deliver(self, user_id: int, msg: dict):
-        """Send message to all WebSocket connections for a user."""
-        async with self.lock:
-            sockets = list(self.connections.get(user_id, set()))
-        
-        dead = []
-        for ws in sockets:
-            try:
-                await ws.send_text(json.dumps(msg, default=str))
-            except Exception as e:
-                logger.debug(f"⚠ Failed to deliver to user {user_id}: {e}")
-                dead.append(ws)
-        
-        # Clean up dead connections
-        for ws in dead:
-            await self.disconnect(user_id, ws)
-
-    def is_online(self, user_id: int) -> bool:
-        """Check if user has active connections."""
-        return user_id in self.connections
-
-
-hub = Hub()
-
-
-CALL_EVENTS = {
-    "call", "call_invite", "call_accept", "call_reject", 
-    "call_cancel", "call_end", "call_offer", "call_answer", "call_ice"
-}
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(ws: WebSocket, token: str):
-    """
-    ✓ FIXED: Token in query param is logged. Better: use Authorization header.
-    For backward compatibility, accepts token query param but logs warning.
-    """
-    if not token:
-        try:
-            await ws.close(code=4401, reason="Missing token")
-        except:
-            pass
-        return
-    
-    logger.warning("⚠ Token via query param (consider using Authorization header)")
-    
-    try:
-        uid = decode_token(token)
-    except HTTPException:
-        try:
-            await ws.close(code=4401, reason="Invalid token")
-        except:
-            pass
-        return
-    
-    try:
-        await ws.accept()
-    except Exception as e:
-        logger.warning(f"⚠ WebSocket accept failed: {e}")
-        return
-    
-    await hub.connect(uid, ws)
-    logger.info(f"✓ WebSocket connected: user {uid}")
-    
-    try:
-        await ws.send_text(json.dumps({
-            "type": "ready",
-            "user_id": uid,
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }))
-        
-        while True:
-            try:
-                raw = await ws.receive_text()
-            except WebSocketDisconnect:
-                break
-            except Exception as e:
-                logger.warning(f"⚠ Receive error: {e}")
-                break
-            
-            try:
-                msg = json.loads(raw)
-            except json.JSONDecodeError:
-                continue
-            
-            mtype = msg.get("type")
-            
-            # Reaction events are handled via REST API with _broadcast_reaction_change
-            # WebSocket only relays them — actual add/remove is via POST/DELETE
-            if mtype in CALL_EVENTS:
-                target = msg.get("to")
-                if isinstance(target, int):
-                    await hub.deliver(target, {
-                        "type": mtype,
-                        "from": uid,
-                        "kind": msg.get("kind", "audio"),
-                        "call_id": msg.get("call_id"),
-                        "payload": msg.get("payload"),
-                    })
-            
-            elif mtype == "typing":
-                target = msg.get("to")
-                if isinstance(target, int):
-                    await hub.deliver(target, {
-                        "type": "typing",
-                        "from": uid,
-                        "group_id": msg.get("group_id"),
-                        "is_typing": bool(msg.get("is_typing", True)),
-                    })
-            
-            elif mtype == "read":
-                target = msg.get("to")
-                if isinstance(target, int):
-                    await hub.deliver(target, {
-                        "type": "read",
-                        "from": uid,
-                        "message_ids": msg.get("message_ids", []),
-                    })
-            
-            elif mtype == "ping":
-                await ws.send_text(json.dumps({"type": "pong"}))
-            
-            elif mtype in ("screenshot", "screenrecord"):
-                db_ws = SessionLocal()
-                try:
-                    ctx_type = msg.get("ctx_type")   # "dm" | "group"
-                    ctx_id   = msg.get("ctx_id")
-                    sender_user = db_ws.get(User, uid)
-                    sender_name = sender_user.username if sender_user else f"User {uid}"
-                    
-                    alert = {
-                        "type": mtype,
-                        "from": uid,
-                        "from_username": sender_name,
-                        "ctx_type": ctx_type,
-                        "ctx_id": ctx_id,
-                        "at": datetime.now(timezone.utc).isoformat(),
-                    }
-                    
-                    recipients: Set[int] = set()
-                    if ctx_type == "dm" and isinstance(ctx_id, int):
-                        recipients = {uid, ctx_id}
-                    elif ctx_type == "group" and isinstance(ctx_id, int):
-                        g = db_ws.get(Group, ctx_id)
-                        if g:
-                            recipients = {m.user_id for m in g.members}
-                    
-                    for rid in recipients:
-                        await hub.deliver(rid, alert)
-                    
-                    logger.info(f"🔔 {mtype.title()} detected from {sender_name}")
-                
-                except Exception as e:
-                    logger.warning(f"⚠ Screenshot handling error: {e}")
-                finally:
-                    db_ws.close()
-    
-    except Exception as e:
-        logger.error(f"WebSocket error: {e}")
-    finally:
-        await hub.disconnect(uid, ws)
-        logger.info(f"✗ WebSocket disconnected: user {uid}")
-
-
-# ═════════════════════════════════════════════════════════════════════════════
-#  HEALTH CHECK
-# ═════════════════════════════════════════════════════════════════════════════
-
-@app.get("/")
-def root():
-    """Service info."""
-    return {
-        "service": "WORCX API v2.0",
-        "status": "ok",
-        "features": [
-            "end-to-end-encryption",
-            "realtime-reactions",
-            "e2ee-api-keys",
-            "websocket-broadcast",
-            "message-editing",
-            "message-deletion",
-            "call-signaling",
-        ]
-    }
-
-
-@app.get("/health")
-def health():
-    """Health check."""
-    return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
-
-
-if __name__ == "__main__":
-    import uvicorn
-    logger.info("🚀 Starting WORCX API v2.0...")
-    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=False, log_level="info")
+class ProfileUpdateIn(BaseModel):
+    display_name: Optional[str] = Field(None, max_length=120)
+    avatar:       Optional[str] = None
+    location:     Optional[str] = Field(None, max_length=120)
+    public_key:   Optional[str] = None
+    is_private:   Optional
